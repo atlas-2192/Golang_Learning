@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"pkg/stacker"
 	"strings"
@@ -54,6 +55,29 @@ func fibonacci() func() (ret int) {
 		fib2 = ret
 		return
 	}
+}
+
+//similar with C++ class. Methonds
+type Circle struct {
+	radius float64
+}
+
+func (v *Circle) area() float64 {
+	return math.Pow(v.radius, 2) * math.Pi
+}
+
+// other method
+type squre_z struct {
+	x float64
+	y float64
+}
+
+func (sz squre_z) area() float64 {
+	return sz.x * sz.y
+}
+
+type model interface {
+	area() float64
 }
 
 func main() {
@@ -142,4 +166,11 @@ func main() {
 		fmt.Print("tomorrow\n")
 	}
 
+	//using Methods
+	c1 := Circle{4}
+	fmt.Printf("area is %f\n", c1.area())
+
+	var m model
+	m = &c1
+	fmt.Print(m.area())
 }
