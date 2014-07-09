@@ -80,6 +80,28 @@ type model interface {
 	area() float64
 }
 
+//Duck Typing
+type abstract_t interface {
+	//Unlink python, golang need define func in interface (point class) first.
+	foo_func()
+}
+
+type sub_t1 struct{}
+
+func (t1 sub_t1) foo_func() {
+	fmt.Print("sub_t1 foo \n")
+}
+
+type sub_t2 struct{}
+
+func (t2 sub_t2) foo_func() {
+	fmt.Print("sub_t2 foo \n")
+}
+
+func show_foo(t abstract_t) {
+	t.foo_func()
+}
+
 func main() {
 	fmt.Print("hello world")
 	fmt.Print("\n")
@@ -170,7 +192,14 @@ func main() {
 	c1 := Circle{4}
 	fmt.Printf("area is %f\n", c1.area())
 
+	//Interface like parent class point.
 	var m model
 	m = &c1
 	fmt.Print(m.area())
+
+	//duck typing
+	var tt abstract_t //declare interface
+	t1 := sub_t1{}    //new instance struct sub_t1
+	tt = t1           //assign value and its func to interface. (c++ func point assignment)
+	show_foo(tt)
 }
