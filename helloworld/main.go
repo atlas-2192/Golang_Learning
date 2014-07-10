@@ -102,6 +102,15 @@ func show_foo(t abstract_t) {
 	t.foo_func()
 }
 
+//Goroutine
+func foo_rountine(msg1 string, msg2 string) {
+	go func(msg string) { //
+		//time.Sleep(delay)
+		fmt.Print("inner", msg)
+	}(msg1) //must add parenthess
+	fmt.Print(msg2)
+}
+
 func main() {
 	fmt.Print("hello world")
 	fmt.Print("\n")
@@ -202,4 +211,26 @@ func main() {
 	t1 := sub_t1{}    //new instance struct sub_t1
 	tt = t1           //assign value and its func to interface. (c++ func point assignment)
 	show_foo(tt)
+
+	//goroutine
+	foo_rountine("in routine\n", "out routine\n")
+
+	//very slow, actually if no input it will goto end without run goroutine
+	go func(msg string) { //
+		//time.Sleep(delay)
+		fmt.Print("inner", msg)
+	}("msg1")
+
+	//very slow, actually if no input it will goto end without run goroutine
+	go func(msg string) {
+		fmt.Println(msg)
+	}("going")
+	show_foo(tt)
+	show_foo(tt)
+	show_foo(tt)
+
+	//Wait for goroutine, only works in execution file
+	var input string
+	fmt.Scanln(&input)
+	fmt.Println("done")
 }
