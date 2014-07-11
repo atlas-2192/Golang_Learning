@@ -1,8 +1,13 @@
 package main
 
 import (
+	"code.google.com/p/go-tour/pic"
 	"fmt"
+	"image"
+	"image/color"
+	"io"
 	"math"
+	"net/http"
 	"os"
 	"pkg/stacker"
 	"strings"
@@ -109,6 +114,36 @@ func foo_rountine(msg1 string, msg2 string) {
 		fmt.Print("inner", msg)
 	}(msg1) //must add parenthess
 	fmt.Print(msg2)
+}
+
+//http
+type HelloSrv struct{}
+
+func (srv HelloSrv) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "hello server<br> test it")
+}
+
+//image
+type Image struct {
+	width, height int
+}
+
+func (ii Image) Bounds() image.Rectangle {
+	return image.Rect(0, 0, ii.width, ii.height)
+}
+
+func (ii Image) ColorModel() color.Model {
+	return color.RGBAModel
+}
+
+func (ii Image) At(x, y int) color.Color {
+	c := uint8(x - y)
+	return color.RGBA{c, c, 255, 255}
+}
+
+//Rot13 reader
+type rot13Reader struct {
+	r io.Reader
 }
 
 func main() {
@@ -233,4 +268,20 @@ func main() {
 	var input string
 	fmt.Scanln(&input)
 	fmt.Println("done")
+
+	//http
+	//fmt.Println("init http server")
+	//var v HelloSrv
+	//http.ListenAndServe("localhost:4000", v)
+	//fmt.Println("finished")
+
+	//image
+	mm := Image{255, 255}
+	pic.ShowImage(mm)
+
+	//rot13 reader
+	s := strings.NewReader("Lbh penpxrq gur pbqr!")
+	r := rot13Reader{s}
+	io.Copy(os.Stdout, &r)
+
 }
