@@ -1,11 +1,10 @@
 package main
 
 import (
-	"code.google.com/p/go-tour/pic"
+	//"code.google.com/p/go-tour/pic"
 	"fmt"
 	"image"
 	"image/color"
-	"io"
 	"math"
 	"net/http"
 	"os"
@@ -141,9 +140,12 @@ func (ii Image) At(x, y int) color.Color {
 	return color.RGBA{c, c, 255, 255}
 }
 
-//Rot13 reader
-type rot13Reader struct {
-	r io.Reader
+func summ(a []int, c chan int) {
+	sum := 0
+	for _, v := range a {
+		sum += v
+	}
+	c <- sum // send sum to c
 }
 
 func main() {
@@ -276,12 +278,11 @@ func main() {
 	//fmt.Println("finished")
 
 	//image
-	mm := Image{255, 255}
-	pic.ShowImage(mm)
+	//mm := Image{255, 255}
+	//pic.ShowImage(mm)
 
-	//rot13 reader
-	s := strings.NewReader("Lbh penpxrq gur pbqr!")
-	r := rot13Reader{s}
-	io.Copy(os.Stdout, &r)
-
+	//channel part
+	aa := []int{7, 2, 8, -9, 4, 0}
+	ch := make(chan int)
+	summ(aa[:len(aa)/2], ch)
 }
