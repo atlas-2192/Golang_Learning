@@ -11,6 +11,23 @@ func sum(a []int, c chan int) {
 	c <- sum // send sum to c
 }
 
+func fabnacci(sum chan int, quit chan int) (ret int) {
+	x, y := 0, 1
+	for {
+		select {
+		case sum <- x:
+			x, y = y, x+y
+			/* is rquivalant with follow
+			z := x + y
+			x = y
+			y = z
+			*/
+		case <-quit:
+			return
+		}
+	}
+}
+
 func main() {
 	a := []int{7, 2, 8, -9, 4, 0}
 
@@ -62,4 +79,23 @@ func main() {
 		fmt.Println("out func")
 		fmt.Println(<-c3 * j)
 	}
+
+	// tuple operation
+	xx := 1
+	yy := 2
+	xx, yy = yy, xx+yy
+
+	fmt.Println(xx, yy)
+
+	//fabnacci
+	fab := make(chan int)
+	quit := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println("fab =", <-fab)
+		}
+		quit <- 0
+	}()
+
+	fabnacci(fab, quit)
 }
