@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "time"
 
 func sum(a []int, c chan int) {
 	fmt.Println("Arra is =", a)
@@ -24,6 +25,9 @@ func fabnacci(sum chan int, quit chan int) (ret int) {
 			*/
 		case <-quit:
 			return
+		default:
+			fmt.Println("timer call")
+			time.Sleep(50 * time.Millisecond)
 		}
 	}
 }
