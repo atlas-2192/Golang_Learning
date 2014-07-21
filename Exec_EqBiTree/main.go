@@ -22,11 +22,8 @@ func walk_acc(t *tree.Tree, ch chan int) {
 // Same determines whether the trees
 // t1 and t2 contain the same values.
 func Same(t1, t2 *tree.Tree) bool {
-
 	ch1 := make(chan int)
 	ch2 := make(chan int)
-
-	//get t1 all
 	go Walk(t1, ch1)
 	go Walk(t2, ch2)
 	for v1 := range ch1 {
