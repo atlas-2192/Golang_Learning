@@ -6,13 +6,20 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type book struct {
-	_id         string
-	isbn        string
-	title       string
-	releaseDate string
-	listPrice   int
-	pubId       string
+type msg struct {
+	// Msg   string        `bson:"msg"`
+	Count int `bson:"count"`
+}
+
+// Note: attribute name must be upper-case start. Or it will not save to DB. (could not identical with document (at least one upper-case))
+type Book struct {
+	ISBN  string
+	TITLE string
+}
+
+type Person struct {
+	Name  string
+	Phone string
 }
 
 func main() {
@@ -25,7 +32,7 @@ func main() {
 
 	fmt.Println("Connection works....")
 	// Optional. Switch the session to a monotonic behavior.
-	session.SetMode(mgo.Monotonic, true)
+	session.SetSafe(&mgo.Safe{})
 	c := session.DB("MongoTest1").C("books")
 
 	fmt.Println("Getting  Database count....")
@@ -33,14 +40,24 @@ func main() {
 	if err2 != nil {
 		panic(err)
 	}
-	fmt.Printf("count = %d\n", count)
+	fmt.Printf("total book count = %d\n", count)
 
-	result := book{}
-	fmt.Println("Getting  data....")
-	err2 = c.Find(bson.M{"_id": "5"}).One(&result)
-	if err2 != nil {
-		panic(err)
+	if count == 0 {
+		err = c.Insert(&Book{"Ale1", "+55 53 8116 9639"})
+		err = c.Insert(&Book{"Ale2", "+55 53 8116 9639"})
+		err = c.Insert(&Book{"Ale3", "+55 53 8116 9639"})
 	}
+	err = c.Insert(&Book{"Ale4", "+55 53 8116 9639"})
+	err = c.Insert(&Book{"Ale5", "+55 53 8116 9639"})
+	err = c.Insert(&Book{"Ale6", "+55 53 8116 9639"})
 
-	fmt.Printf("result =%s\n", result)
+	result := Book{}
+	fmt.Println("Getting  data....")
+	err2 = c.Find(bson.M{"isbn": "Ale3"}).One(&result)
+	//when search the DB it must all lower-case to avoid any error.
+	if err2 != nil {
+		fmt.Printf("No data\n")
+	} else {
+		fmt.Printf("result =%+v\n", result)
+	}
 }
