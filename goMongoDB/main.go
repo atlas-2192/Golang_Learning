@@ -13,9 +13,9 @@ type msg struct {
 
 // Note: attribute name must be upper-case start. Or it will not save to DB. (could not identical with document (at least one upper-case))
 type Book struct {
-	ISBN  string
-	TITLE string
-	PRICE int
+	Isbn  string `bson:"isbn"`
+	Title string `bson:"title"`
+	Price int    `bson:"price"`
 }
 
 type Person struct {
