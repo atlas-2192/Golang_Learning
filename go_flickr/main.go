@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"github.com/mncaudill/go-flickr"
+	"net/http"
 )
 
 type Auth_Frob struct {
@@ -67,7 +68,17 @@ func main() {
 		}
 	}
 
-	string_forb := 
+	//Open login windows
+	{
+		fmt.Println("Starting to login page.......")
+		request_url := fmt.Sprintf("http://flickr.com/services/auth/?api_key=%s&perms=%s&frob=%s&api_sig=%s", api_key, "write", respone_frob.Frob, api_secret)
+		fmt.Println(request_url)
+		res, err := http.Get(request_url)
+		if err == nil {
+			fmt.Println(res)
+		}
+	}
+
 	{
 		fmt.Println("Get token")
 		r := &flickr.Request{
