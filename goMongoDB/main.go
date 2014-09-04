@@ -25,7 +25,7 @@ type Person struct {
 
 func main() {
 	fmt.Println("Starting connect mongoDB....")
-	session, err := mgo.Dial(SERVER_CONNECT_STRING)
+	session, err := mgo.Dial("localhost:27017")
 	if err != nil {
 		panic(err)
 	}
@@ -50,6 +50,9 @@ func main() {
 		err = c.Insert(&Book{"Ale4", "Book4", 15})
 		err = c.Insert(&Book{"Ale5", "Book5", 55})
 		err = c.Insert(&Book{"Ale6", "Book6", 45})
+	} else {
+		err = c.Insert(&Book{"Ale7", "Book7", 45})
+
 	}
 
 	result := Book{}
