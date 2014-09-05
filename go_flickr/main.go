@@ -4,7 +4,8 @@ import (
 	"encoding/xml"
 	"fmt"
 	"github.com/mncaudill/go-flickr"
-	"net/http"
+	"os/exec"
+	"runtime"
 )
 
 type Auth_Frob struct {
@@ -72,10 +73,21 @@ func main() {
 	{
 		fmt.Println("Starting to login page.......")
 		request_url := fmt.Sprintf("http://flickr.com/services/auth/?api_key=%s&perms=%s&frob=%s&api_sig=%s", api_key, "write", respone_frob.Frob, api_secret)
-		fmt.Println(request_url)
-		res, err := http.Get(request_url)
-		if err == nil {
-			fmt.Println(res)
+		var err error
+		switch runtime.GOOS {
+		case "linux":
+			fmt.Println("Mac/Linux")
+			err = exec.Command("xdg-open", request_url).Start()
+		case "windows", "darwin":
+			fmt.Println("Windows")
+			fmt.Println(request_url)
+			err = exec.Command("cmd", "/c", "start", request_url).Start()
+		default:
+			err = fmt.Errorf("unsupported platform")
+		}
+
+		if err != nil {
+			fmt.Println(err)
 		}
 	}
 
