@@ -31,9 +31,9 @@ func walkpath(path string, f os.FileInfo, err error) error {
 			//cmd_str := fmt.Sprintf("cmd /c exiftool.exe -title=\"1234\"  %s", str_abs)
 			//fmt.Println(string(cmd_str))
 
-			str_title := fmt.Sprintf("-title=\"%s\"a", ext_str)
+			//str_title := fmt.Sprintf("-title='1234'")
 			fmt.Println(ext_str)
-			stdout, err := exec.Command("cmd", "/c", "exiftool.exe", str_title, "-E", str_abs).Output()
+			stdout, err := exec.Command("cmd", "/c", "exiftool.exe", "-title", "1234", str_abs).Output()
 			fmt.Println(string(stdout))
 			if err != nil {
 				fmt.Printf("Run command error: %s\n", err.Error())
