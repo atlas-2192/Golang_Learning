@@ -1,3 +1,6 @@
 concurrency/concurrency
 goMongoDB/config.go
 goMongoDB/goMongoDB
+main
+exif
+go_flickr
