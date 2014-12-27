@@ -4,3 +4,6 @@ goMongoDB/goMongoDB
 main
 exif
 go_flickr
+*.exe
+*.jpg
+*.jpg_original

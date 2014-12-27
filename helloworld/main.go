@@ -8,7 +8,6 @@ import (
 	"math"
 	"net/http"
 	"os"
-	"pkg/stacker"
 	"strings"
 	"time"
 )
@@ -169,14 +168,6 @@ func main() {
 		who = strings.Join(os.Args[1:], "")
 	}
 	fmt.Print("hello", who)
-
-	var haystack stack.Stack
-	haystack.Push("text")
-	haystack.Push(14)
-	item, error := haystack.Pop()
-	if error == nil {
-		fmt.Print("Pop out ->", item)
-	}
 
 	//About Map
 	m1 := make(map[string]string)
