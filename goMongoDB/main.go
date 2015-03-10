@@ -6,6 +6,8 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+var SERVER_CONNECT_STRING = "mongodb://heroku:DsRBxVA1CIFLJQB2kSZZnsP0L2XosvaVRlZbxZlcU4in8pokyFeZ5CMSVKV3d9nsyiyX-ZcjA3mSPciqeTCSiw@candidate.14.mongolayer.com:10799,candidate.15.mongolayer.com:10745/app27707026"
+
 type msg struct {
 	// Msg   string        `bson:"msg"`
 	Count int `bson:"count"`
@@ -25,7 +27,7 @@ type Person struct {
 
 func main() {
 	fmt.Println("Starting connect mongoDB....")
-	session, err := mgo.Dial("localhost:27017")
+	session, err := mgo.Dial(SERVER_CONNECT_STRING)
 	if err != nil {
 		panic(err)
 	}
@@ -34,7 +36,7 @@ func main() {
 	fmt.Println("Connection works....")
 	// Optional. Switch the session to a monotonic behavior.
 	session.SetSafe(&mgo.Safe{})
-	c := session.DB("MongoTest1").C("books")
+	c := session.DB("app27707026").C("test")
 
 	fmt.Println("Getting  Database count....")
 	count, err2 := c.Find(bson.M{}).Count()
@@ -58,7 +60,10 @@ func main() {
 	result := Book{}
 	fmt.Println("Getting  data....")
 	// Find book which prices is greater than(gt) 40
-	iter := c.Find(bson.M{"price": bson.M{"$gt": 40}}).Iter()
+	//iter := c.Find(bson.M{"price": bson.M{"$gt": 40}}).Iter()
+	//Order By: bson.M{"$query": bson.M{}, "$orderby": bson.M{"price": -1}}
+	//AND: bson.M{"$and": []bson.M{bson.M{"title": "Book7"}, bson.M{"price": 35}}}
+	iter := c.Find(bson.M{"$and": []bson.M{bson.M{"title": "Book7"}, bson.M{"price": 35}}}).Iter()
 	var index = 1
 
 	for iter.Next(&result) {
