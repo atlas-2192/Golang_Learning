@@ -2,8 +2,8 @@ package main
 
 // "time"
 
-func maxCount(m int, n int, ops [][]int) int {
-	var base [40000][40000]int
+func maxCountWrong(m int, n int, ops [][]int) int {
+	var base [400][400]int
 
 	for _, v := range ops {
 		for i := 0; i < v[1]; i++ {
@@ -33,4 +33,20 @@ func maxCount(m int, n int, ops [][]int) int {
 	// }
 
 	return mm[base[0][0]]
+}
+
+func maxCount(m int, n int, ops [][]int) int {
+	minM, minN := m, n
+	for _, op := range ops {
+		minM = min(minM, op[0])
+		minN = min(minN, op[1])
+	}
+	return minM * minN
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
