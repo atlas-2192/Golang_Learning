@@ -14,7 +14,7 @@ func TestMaxCount(t *testing.T) {
 	testCases = append(testCases, TestCases{3, 3, [][]int{}, 9})
 
 	for _, tc := range testCases {
-		actual := MaxCount(tc.m, tc.n, tc.input)
+		actual := maxCount(tc.m, tc.n, tc.input)
 		if actual != tc.expected {
 			t.Errorf("maxCount(%v) == %v, expected %v", tc.input, actual, tc.expected)
 		}
