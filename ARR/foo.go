@@ -1,22 +1,19 @@
 package foo
 
 func duplicateZeros(arr []int) {
-	var a []int
+	var ret []int
 	for i := 0; i < len(arr); i++ {
-		if arr[i] == 0 && i < len(arr)-1 && len(a) == 0 {
-			a = append(a, arr[i+1])
-			arr[i+1] = 0
-			i++
-		} else if len(a) != 0 {
-			a = append(a, arr[i])
-			if a[0] == 0 {
-				a = append(a, arr[i])
-				a = append(a, arr[i+1])
-				arr[i+1] = 0
-			}
-			arr[i], a = a[0], a[1:]
+		if arr[i] == 0 {
+			ret = append(ret, 0)
+			ret = append(ret, 0)
+		} else {
+			ret = append(ret, arr[i])
+		}
+		if len(ret) >= len(arr) {
+			break
 		}
 	}
+	copy(arr, ret)
 }
 
 //https://leetcode.com/explore/learn/card/fun-with-arrays/525/inserting-items-into-an-array/3245/
