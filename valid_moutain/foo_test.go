@@ -9,14 +9,14 @@ type TestCases struct {
 
 func TestLeetcode(t *testing.T) {
 	var testCases []TestCases
-	testCases = append(testCases, TestCases{[]int{10, 2, 5, 3}, true})
-	testCases = append(testCases, TestCases{[]int{7, 1, 14, 11}, true})
+	testCases = append(testCases, TestCases{[]int{2, 1}, false})
+	testCases = append(testCases, TestCases{[]int{3, 5, 5}, false})
 	testCases = append(testCases, TestCases{[]int{}, false})
-	testCases = append(testCases, TestCases{[]int{0, 0}, true})
-	testCases = append(testCases, TestCases{[]int{3, 1, 7, 11}, false})
+	testCases = append(testCases, TestCases{[]int{0, 3, 2, 1}, true})
+	testCases = append(testCases, TestCases{[]int{0, 2, 3, 4, 5, 2, 1, 0}, true})
 
 	for _, tc := range testCases {
-		actual := checkIfExist(tc.i1)
+		actual := validMountainArray(tc.i1)
 		if actual != tc.expected {
 			t.Errorf("checkIfExist()) == %v, expected %v", tc.i1, tc.expected)
 		}
