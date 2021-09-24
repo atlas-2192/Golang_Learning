@@ -5,23 +5,6 @@ type ListNode struct {
 	Next *ListNode
 }
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
-func searchBST(root *TreeNode, val int) *TreeNode {
-	if root != nil && val > root.Val {
-		return searchBST(root.Right, val)
-	} else if root != nil && val < root.Val {
-		return searchBST(root.Right, val)
-	} else if root != nil && val == root.Val {
-		return root
-	}
-	return nil
-}
-
 func reverseList(head *ListNode) *ListNode {
 	var cur, next, prev *ListNode
 	cur = head
