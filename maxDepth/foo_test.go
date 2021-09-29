@@ -9,24 +9,24 @@ type TestCases struct {
 
 func TestLeetcode(t *testing.T) {
 	var testCases []TestCases
-	// testCases = append(testCases, TestCases{
-	// 	i1: &TreeNode{
-	// 		Val: 3,
-	// 		Left: &TreeNode{
-	// 			Val:   9,
-	// 			Left:  nil,
-	// 			Right: nil},
-	// 		Right: &TreeNode{
-	// 			Val: 2,
-	// 			Left: &TreeNode{
-	// 				Val:   15,
-	// 				Left:  nil,
-	// 				Right: nil},
-	// 			Right: &TreeNode{
-	// 				Val:   7,
-	// 				Left:  nil,
-	// 				Right: nil}}},
-	// 	expected: 3})
+	testCases = append(testCases, TestCases{
+		i1: &TreeNode{
+			Val: 3,
+			Left: &TreeNode{
+				Val:   9,
+				Left:  nil,
+				Right: nil},
+			Right: &TreeNode{
+				Val: 2,
+				Left: &TreeNode{
+					Val:   15,
+					Left:  nil,
+					Right: nil},
+				Right: &TreeNode{
+					Val:   7,
+					Left:  nil,
+					Right: nil}}},
+		expected: 2})
 	testCases = append(testCases, TestCases{
 		i1: &TreeNode{
 			Val:  1,
