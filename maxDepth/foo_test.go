@@ -35,7 +35,7 @@ func TestLeetcode(t *testing.T) {
 				Val:   2,
 				Left:  nil,
 				Right: nil}},
-		expected: 2})
+		expected: 1})
 	for _, tc := range testCases {
 		actual := maxDepth(tc.i1)
 		if actual != tc.expected {
