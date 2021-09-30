@@ -14,9 +14,9 @@ type TestCases struct {
 func TestLeetcode(t *testing.T) {
 	var testCases []TestCases
 	// testCases = append(testCases, TestCases{2.00000, 10, 1024.00000})
-	// testCases = append(testCases, TestCases{2.10000, 3, 9.26100})
-	// testCases = append(testCases, TestCases{2.00000, -2, 0.25000})
-	testCases = append(testCases, TestCases{0.00001, 2147483647, 0.25000})
+	testCases = append(testCases, TestCases{2.10000, 3, 9.26100})
+	testCases = append(testCases, TestCases{2.00000, -2, 0.25000})
+	// testCases = append(testCases, TestCases{0.00001, 2147483647, 0.25000})
 
 	for _, tc := range testCases {
 		actual := myPow(tc.i1, tc.i2)
