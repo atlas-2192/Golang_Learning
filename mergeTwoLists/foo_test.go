@@ -4,42 +4,40 @@ import "testing"
 
 type TestCases struct {
 	i1       *ListNode
-	i22      *ListNode
+	i2       *ListNode
 	expected *ListNode
 }
 
 func TestLeetcode(t *testing.T) {
 	var testCases []TestCases
 	testCases = append(testCases, TestCases{
-		&ListNode{
+		i1: &ListNode{
 			Val: 1,
 			Next: &ListNode{
 				Val: 2,
 				Next: &ListNode{
 					Val:  4,
 					Next: nil}}},
-		&ListNode{
+		i2: &ListNode{
 			Val: 1,
 			Next: &ListNode{
 				Val: 3,
 				Next: &ListNode{
 					Val:  4,
-					Next: nil}}}},
-					&ListNode{
-			Val: 1,
-			Next: &ListNode{
-				Val: 3,
-				Next: &ListNode{
-					Val:  4,
-					Next: nil}}}},
-		&ListNode{
+					Next: nil}}},
+		expected: &ListNode{
 			Val: 1,
 			Next: &ListNode{
 				Val: 1,
 				Next: &ListNode{
-					Val:  2,
-					Next: nil}}}},
-	)
+					Val: 2,
+					Next: &ListNode{
+						Val: 3,
+						Next: &ListNode{
+							Val: 4,
+							Next: &ListNode{
+								Val:  4,
+								Next: nil}}}}}}})
 
 	for _, tc := range testCases {
 		actual := mergeTwoLists(tc.i1, tc.i2)
